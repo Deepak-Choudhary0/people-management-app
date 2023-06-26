@@ -4,7 +4,7 @@ const { MongoClient } = require('mongodb');
 const app = express();
 const port = 3000;
 
-const mongoURI = 'mongodb://127.0.0.1:27017/person'; // Replace with your MongoDB connection string
+const mongoURI = 'mongodb://127.0.0.1:27017/person';
 
 const connectToMongoDB = async () => {
   try {
@@ -23,20 +23,20 @@ const connectToMongoDB = async () => {
     
     // CRUD on MongoDB
 
-    // // Create data
+    // Create data
 
-    //   // Single document insertion
-    //   const document = { name: 'John Doe', age: 30 };
-    //   const result = await collection.insertOne(document);
-    //   console.log('Inserted document ID:', result.insertedId);
+      // Single document insertion
+      const document = { name: 'John Doe', age: 30 };
+      const result = await collection.insertOne(document);
+      console.log('Inserted document ID:', result.insertedId);
 
-    //   // Multiple document insertion
-    //   var documents = [
-    //     { name: 'Jane Smith', age: 25 },
-    //     { name: 'Mike Johnson', age: 35 },
-    //   ];
-    //   const results = await collection.insertMany(documents);
-    //   console.log('Inserted document IDs:', results.insertedIds);
+      // Multiple document insertion
+      var documents = [
+        { name: 'Jane Smith', age: 25 },
+        { name: 'Mike Johnson', age: 35 },
+      ];
+      const results = await collection.insertMany(documents);
+      console.log('Inserted document IDs:', results.insertedIds);
 
     //Reading Part
       var documents = await collection.find().toArray();
@@ -68,31 +68,28 @@ const connectToMongoDB = async () => {
         console.log(`==> ${key} : ${documents[0][key]}`);
       }
 
-    // Delete
-      const documentToDelete = { _id: documents[0][keys[0]] }; // Replace <documentId> with the actual document ID
-      const deleteResult = await collection.deleteOne(documentToDelete);
-      console.log('\nDeleted document count:', deleteResult.deletedCount,'\n');
+    // // Delete
+    //   const documentToDelete = { _id: documents[0][keys[0]] }; // Replace <documentId> with the actual document ID
+    //   const deleteResult = await collection.deleteOne(documentToDelete);
+    //   console.log('\nDeleted document count:', deleteResult.deletedCount,'\n');
 
-      console.log('Data after deletion:');
+    //   console.log('Data after deletion:');
 
-      //Get data again from DB
-      documents = await collection.find().toArray();
-      for (let i=0;i<documents.length;i++){
-        console.log(`Data ID: ${i}`);
-        for (x in keys){
-          key=keys[x];
-          console.log(`==> ${key} : ${documents[i][key]}`);
-        }
-      };
+    //   //Get data again from DB
+    //   documents = await collection.find().toArray();
+    //   for (let i=0;i<documents.length;i++){
+    //     console.log(`Data ID: ${i}`);
+    //     for (x in keys){
+    //       key=keys[x];
+    //       console.log(`==> ${key} : ${documents[i][key]}`);
+    //     }
+    //   };
 
     //Query
       const query = { age: { $gte: 35 } }; // Example query to find documents with age greater than or equal to 30
       const documentsMatching = await collection.find(query).toArray();
       if (documentsMatching.length > 0) {
         console.log('\nMatching documents:',documentsMatching.length,'\n');
-        // documentsMatching.forEach((document, index) => {
-        //   console.log(`Document ${index + 1}:`, document);
-        // });
         for (let i=0;i<documentsMatching.length;i++){
           console.log(`Matching ID: ${i}`);
           for (x in keys){
