@@ -1,0 +1,13 @@
+<h2>Edit Person</h2>
+
+<div *ngIf="person">
+  <label>Name:</label>
+  <input [(ngModel)]="person.name" type="text">
+  <label>Age:</label>
+  <input [(ngModel)]="person.age" type="number">
+  <button (click)="updatePerson()">Save</button>
+</div>
+
+<div *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
